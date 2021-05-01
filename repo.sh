@@ -18,8 +18,27 @@
 # app:flutter create app; cd app;
 # web:flutter create app --web
 
+Help(){
+ echo "Automate Projekt creation"
+   echo
+   echo "Syntax:  project-path -flags:[-react | -react-ts \n| -react-redux | -react-ts-redux | -rn | -rn-ts \n| -next | -next-ts  | -flutter ]"
+   echo "options:"
+   echo
+   echo "-react					Plain react template"
+   echo "-react-ts				React + TS"
+   echo "-react-redux				React + Redux"
+   echo "-react-ts-redux				React + TS + Redux"
+   echo
+   echo "-rn					React native + Expo"
+   echo "-rn-ts					React native + Expo + TS"
+   echo
+   echo "-next					Next js"
+   echo "-next-ts				Next js + TS"	
+   echo
+   echo "-flutter				Flutter"
+}
+
 github_no_cd(){
-	pwd
 	gh repo create $1 --public -y
 	git remote set-url origin git@github.com:joey364/$1.git
 	git push -u origin main
@@ -35,7 +54,7 @@ while [ -n "$1" ]; do # while loop starts
 
 	case "$1" in
 
-	mreact)
+	-react)
 		echo "React"
 		yarn create react-app "$param"
 		github $param
@@ -93,6 +112,10 @@ while [ -n "$1" ]; do # while loop starts
 		echo "Flutter"
 		flutter create $param 
 		github $param
+		;;
+	-h)
+		Help
+		exit
 		;;
 
 	*) echo "Option $1 not recognized" ;; # In case you typed a different option
